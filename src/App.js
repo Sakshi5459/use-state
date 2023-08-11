@@ -68,34 +68,139 @@
 // }
 
 //4
-import { useState } from "react";
+// import { useState } from "react";
 
-export default function Form() {
-  const [firstName, setFirstName] = useState(" ");
-  const [lastName, setLastName] = useState(" ");
+// export default function Form() {
+//   const [firstName, setFirstName] = useState(" ");
+//   const [lastName, setLastName] = useState(" ");
 
-  const fullName = firstName + " " + lastName;
+//   const fullName = firstName + " " + lastName;
 
-  function handleFirstNameChange(e) {
-    setFirstName(e.target.value);
+//   function handleFirstNameChange(e) {
+//     setFirstName(e.target.value);
+//   }
+
+//   function handleLastNameChange(e) {
+//     setLastName(e.target.value);
+//   }
+
+//   return (
+//     <>
+//       <h2>lets get you in</h2>
+//       <label>
+//         First name: <input value={firstName} onChange={handleFirstNameChange} />
+//       </label>
+//       <label>
+//         Last name: <input value={lastName} onChange={handleLastNameChange} />
+//       </label>
+//       <p>
+//         Your ticket will be issued as: <b>{fullName}</b>
+//       </p>
+//     </>
+//   );
+// }
+
+//5
+// import { useState } from "react";
+// import Chat from "./Chat";
+// import ContactList from "./ContactList";
+
+// export default function Messenger() {
+//   const [to, setTo] = useState(Contacts[0]);
+//   return (
+//     <div>
+//       <ContactList
+//         Contacts={Contacts}
+//         selectedContact={to}
+//         onSelect={(Contact) => setTo(Contact)}
+//       />
+//       <Chat Contact={to} />
+//     </div>
+//   );
+// }
+
+// const Contacts = [
+//   { name: "Abhi", email: "abhi@mail.com" },
+//   { name: "Manisha", email: "manisha@mail.com" },
+//   { name: "Elvish", email: "elvish@mail.com" },
+// ];
+
+//6
+import { useReducer } from "react";
+import AddTask from "./AddTask";
+import TaskList from "./TaskList";
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+  function handleAddTask(text) {
+    dispatch({
+      type: "added",
+      id: nextId++,
+      text: text,
+    });
   }
 
-  function handleLastNameChange(e) {
-    setLastName(e.target.value);
+  function handleChangeTask(task) {
+    dispatch({
+      type: "changed",
+      task: task,
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      tyoe: "deleted",
+      id: taskId,
+    });
   }
 
   return (
     <>
-      <h2>lets get you in</h2>
-      <label>
-        First name: <input value={firstName} onChange={handleFirstNameChange} />
-      </label>
-      <label>
-        Last name: <input value={lastName} onChange={handleLastNameChange} />
-      </label>
-      <p>
-        Your ticket will be issued as: <b>{fullName}</b>
-      </p>
+      <h1>Prague itinerary</h1>
+      <AddTask onAddTask={handleAddTask} />
+      <TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      />
     </>
   );
 }
+
+function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case "added": {
+      return [
+        ...tasks,
+        {
+          id: action.id,
+          text: action.text,
+          done: false,
+        },
+      ];
+    }
+    case "changed": {
+      return tasks.map((t) => {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case "deleted": {
+      return tasks.filter((t) => t.id !== action.id);
+    }
+    default: {
+      throw Error("Unknown action:" + action.type);
+    }
+  }
+}
+
+let nextId = 3;
+const initialTasks = [
+  { id: 0, text: "Abhi", done: true },
+  { id: 1, text: "Shiva", done: false },
+  { id: 2, text: "Manisha", done: false },
+];
