@@ -206,16 +206,30 @@
 // ];
 
 //7
-import AddTask from "./AddTask";
-import TaskList from "./TaskList";
-import { TasksProvider } from "./TaskContext";
+// import AddTask from "./AddTask";
+// import TaskList from "./TaskList";
+// import { TasksProvider } from "./TaskContext";
 
-export default function TaskApp() {
-  return (
-    <TasksProvider>
-      <h1>Day off in tokyo</h1>
-      <AddTask />
-      <TaskList />
-    </TasksProvider>
-  );
+// export default function TaskApp() {
+//   return (
+//     <TasksProvider>
+//       <h1>Day off in tokyo</h1>
+//       <AddTask />
+//       <TaskList />
+//     </TasksProvider>
+//   );
+// }
+
+//8
+import { useRef } from "react";
+
+export default function Counter() {
+  let ref = useRef(0);
+
+  function handleClick() {
+    ref.current = ref.current + 1;
+    alert("You clicked " + ref.current + " times!");
+  }
+
+  return <button onClick={handleClick}>Click me!</button>;
 }
