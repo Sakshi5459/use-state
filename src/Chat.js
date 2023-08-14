@@ -1,18 +1,25 @@
-import { useState } from "react";
-
-export default function Chat({ Contact }) {
-  const [text, setText] = useState("");
-  return (
-    <section className="chat">
-      <textarea
-        value={text}
-        placeholder={"Chat to " + Contact.name}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <br />
-      <button>
-        <b>Send to {Contact.email}</b>
-      </button>
-    </section>
-  );
+export function createConnection(serverUrl, roomId) {
+  let connectedCallback;
+  let timeout;
+  return {
+    connect() {
+      timeout = setTimeout(() => {
+        if (connectedCallback) {
+          connectedCallback();
+        }
+      }, 100);
+    },
+    on(event, callback) {
+      if (connectedCallback) {
+        throw Error("Cannot add the handler twice");
+      }
+      if (event !== "connected") {
+        throw Error('Only "connected" event is supported');
+      }
+      connectedCallback = callback;
+    },
+    disconnect() {
+      clearTimeout(timeout);
+    },
+  };
 }

@@ -221,15 +221,201 @@
 // }
 
 //8
-import { useRef } from "react";
+// import { useRef } from "react";
 
-export default function Counter() {
-  let ref = useRef(0);
+// export default function Counter() {
+//   let ref = useRef(0);
 
-  function handleClick() {
-    ref.current = ref.current + 1;
-    alert("You clicked " + ref.current + " times!");
-  }
+//   function handleClick() {
+//     ref.current = ref.current + 1;
+//     alert("You clicked " + ref.current + " times!");
+//   }
 
-  return <button onClick={handleClick}>Click me!</button>;
-}
+//   return <button onClick={handleClick}>Click me!</button>;
+// }
+
+//9
+// import { useRef } from "react";
+
+// export default function Form() {
+//   const inputRef = useRef(null);
+
+//   function handleClick() {
+//     inputRef.current.focus();
+//   }
+
+//   return (
+//     <>
+//       <input ref={inputRef} />
+//       <button onClick={handleClick}>Focus the input</button>
+//     </>
+//   );
+// }
+
+//10
+// import { useState, useRef, useEffect } from "react";
+
+// function VideoPlayer({ src, isPlaying }) {
+//   const ref = useRef(null);
+
+//   useEffect(() => {
+//     if (isPlaying) {
+//       ref.current.play();
+//     } else {
+//       ref.current.pause();
+//     }
+//   }, [isPlaying]);
+//   return <video ref={ref} src={src} loop playsInline />;
+// }
+
+// export default function App() {
+//   const [isPlaying, setIsPlaying] = useState(false);
+
+//   return (
+//     <>
+//       <center>
+//         <button onClick={() => setIsPlaying(!isPlaying)}>
+//           {isPlaying ? "Pause  " : "Play  "}
+//         </button>
+//       </center>
+//       <VideoPlayer
+//         isPlaying={isPlaying}
+//         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+//       />
+//     </>
+//   );
+// }
+
+//11
+// import { useState, useEffect } from "react";
+// import { createConnection } from "./Chat";
+
+// export default function Chatroom() {
+//   useEffect(() => {
+//     const connection = createConnection();
+//     connection.connect();
+//     return () => connection.disconnect();
+//   }, []);
+//   return <h1>Welcome to the chat!</h1>;
+// }
+
+//12
+// import { useState, useEffect } from "react";
+// import { createConnection } from "./Chat";
+
+// const serverUrl = "https://localhost:1234";
+
+// function ChatRoom({ roomId }) {
+//   useEffect(() => {
+//     const connection = createConnection(serverUrl, roomId);
+//     connection.connect();
+//     return () => connection.disconnect();
+//   }, [roomId]);
+
+//   return <h1>Welcome to the {roomId} room!</h1>;
+// }
+
+// export default function App() {
+//   const [roomId, setRoomId] = useState("general");
+//   return (
+//     <>
+//       <label>
+//         Choose the chat room:{" "}
+//         <select value={roomId} onChange={(e) => setRoomId(e.target.value)}>
+//           <option value="general">general</option>
+//           <option value="travel">travel</option>
+//           <option value="music">music</option>
+//         </select>
+//       </label>
+//       <hr />
+//       <ChatRoom roomId={roomId} />
+//     </>
+//   );
+// }
+
+//13
+// import { useState, useEffect } from "react";
+// import { createConnection, sendMessage } from "./Chat";
+
+// const serverUrl = "https://localhost:1234";
+
+// function ChatRoom({ roomId, theme }) {
+//   useEffect(() => {
+//     const connection = createConnection(serverUrl, roomId);
+//     connection.on("connected", () => {
+//       showNotification("Connected!", theme);
+//     });
+//     connection.connect();
+//     return () => connection.disconnect();
+//   }, [roomId, theme]);
+
+//   return <h1>Welcome to the {roomId} room!</h1>;
+// }
+
+// export default function App() {
+//   const [roomId, setRoomId] = useState("general");
+//   const [isDark, setIsDark] = useState(false);
+//   return (
+//     <>
+//       <label>
+//         Choose the chat room:{" "}
+//         <select value={roomId} onChange={(e) => setRoomId(e.target.value)}>
+//           <option value="general">general</option>
+//           <option value="travel">travel</option>
+//           <option value="music">music</option>
+//         </select>
+//       </label>
+//       <label>
+//         <input
+//           type="checkbox"
+//           checked={isDark}
+//           onChange={(e) => setIsDark(e.target.checked)}
+//         />
+//         Use dark theme
+//       </label>
+//       <hr />
+//       <ChatRoom roomId={roomId} theme={isDark ? "dark" : "light"} />
+//     </>
+//   );
+// }
+
+//14
+// import { usePointerPosition } from "./usePointerPosition";
+// import { useDelayedValue } from "./useDelayedValue";
+
+// export default function Canvas() {
+//   const pos1 = usePointerPosition();
+//   const pos2 = useDelayedValue(pos1, 100);
+//   const pos3 = useDelayedValue(pos2, 200);
+//   const pos4 = useDelayedValue(pos3, 100);
+//   const pos5 = useDelayedValue(pos4, 50);
+
+//   return (
+//     <>
+//       <Dot position={pos1} opacity={1} />
+//       <Dot position={pos2} opacity={0.8} />
+//       <Dot position={pos3} opacity={0.6} />
+//       <Dot position={pos4} opacity={0.4} />
+//       <Dot position={pos5} opacity={0.2} />
+//     </>
+//   );
+// }
+
+// function Dot({ position, opacity }) {
+//   return (
+//     <div
+//       style={{
+//         position: "absolute",
+//         backgroundColor: "pink",
+//         borderRadius: "50%",
+//         opacity,
+//         transform: `translate(${position.x}px), ${position.y}px)`,
+//         pointerEvents: "none",
+//         left: -20,
+//         top: -20,
+//         width: 40,
+//         height: 40,
+//       }}
+//     />
+//   );
+// }
