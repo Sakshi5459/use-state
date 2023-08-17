@@ -669,27 +669,107 @@
 
 //23
 
-import { useState } from "react";
-import ProductPage from "./ProductPage";
+// import { useState } from "react";
+// import ProductPage from "./ProductPage";
 
-export default function App() {
-  const [isDark, setIsDark] = useState(false);
+// export default function App() {
+//   const [isDark, setIsDark] = useState(false);
+//   return (
+//     <>
+//       <label>
+//         <input
+//           type="checkbox"
+//           checked={isDark}
+//           onChange={(e) => setIsDark(e.target.checked)}
+//         />
+//         Dark mode
+//       </label>
+//       <hr />
+//       <ProductPage
+//         referrerId="wizard_of_oz"
+//         productId={123}
+//         theme={isDark ? "dark" : "light"}
+//       />
+//     </>
+//   );
+// }
+
+//24
+
+// import { useOnlineStatus } from "./useOnlineStatus";
+
+// function StatusBar() {
+//   const isOnline = useOnlineStatus();
+//   return <h1> {isOnline ? "Online" : "Offline"}</h1>;
+// }
+
+// export default function App() {
+//   return <StatusBar />;
+// }
+
+//25
+
+// import { useState, useDeferredValue } from "react";
+// import SlowList from "./SlowList";
+
+// export default function App() {
+//   const [text, setText] = useState(" ");
+//   const deferredText = useDeferredValue(text);
+//   return (
+//     <>
+//       <input value={text} onChange={(e) => setText(e.target.value)} />
+//       <SlowList text={deferredText} />
+//     </>
+//   );
+// }
+
+//26
+
+// import { useId } from "react";
+
+// function PasswordField() {
+//   const passwordHintId = useId();
+//   console.log("Generated identifier:", passwordHintId);
+//   return (
+//     <>
+//       <label>
+//         Password:
+//         <input type="password" aria-describedby={passwordHintId} />
+//       </label>
+//       <p id={passwordHintId}>
+//         The password should contain at least 18 characters
+//       </p>
+//     </>
+//   );
+// }
+
+// export default function App() {
+//   return (
+//     <>
+//       <h2> Choose password </h2>
+//       <PasswordField />
+//     </>
+//   );
+// }
+
+//27
+
+import { useRef } from "react";
+import MyInput from "./MyInput.js";
+
+export default function Form() {
+  const ref = useRef(null);
+
+  function handleClick() {
+    ref.current.focus();
+  }
+
   return (
-    <>
-      <label>
-        <input
-          type="checkbox"
-          checked={isDark}
-          onChange={(e) => setIsDark(e.target.checked)}
-        />
-        Dark mode
-      </label>
-      <hr />
-      <ProductPage
-        referrerId="wizard_of_oz"
-        productId={123}
-        theme={isDark ? "dark" : "light"}
-      />
-    </>
+    <form>
+      <MyInput label="Enetr your name:" ref={ref} />
+      <button type="button" onClick={handleClick}>
+        Edit
+      </button>
+    </form>
   );
 }
