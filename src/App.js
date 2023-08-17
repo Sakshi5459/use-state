@@ -529,39 +529,167 @@
 
 //19
 
-import { useRef } from "react";
+// import { useRef } from "react";
 
-function DebouncedButton({ onClick, children }) {
-  const timeoutRef = useRef(null);
-  return (
-    <button
-      onClick={() => {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-          onClick();
-        }, 1000);
-      }}
-    >
-      {" "}
-      {children}{" "}
-    </button>
-  );
-}
+// function DebouncedButton({ onClick, children }) {
+//   const timeoutRef = useRef(null);
+//   return (
+//     <button
+//       onClick={() => {
+//         clearTimeout(timeoutRef.current);
+//         timeoutRef.current = setTimeout(() => {
+//           onClick();
+//         }, 1000);
+//       }}
+//     >
+//       {" "}
+//       {children}{" "}
+//     </button>
+//   );
+// }
 
-export default function Dashboard() {
+// export default function Dashboard() {
+//   return (
+//     <>
+//       <DebouncedButton onClick={() => alert("Spaceship launched!")}>
+//         Launch the Spaceship
+//       </DebouncedButton>
+//       <br />
+//       <DebouncedButton onClick={() => alert("Soup boiled!")}>
+//         Boil the soup
+//       </DebouncedButton>
+//       <br />
+//       <DebouncedButton onClick={() => alert("Lullaby sung!")}>
+//         Sing a lullaby
+//       </DebouncedButton>
+//     </>
+//   );
+// }
+
+//20
+
+// import { useEffect, useRef } from "react";
+
+// export default function MyInput({ value, onChange }) {
+//   const ref = useRef(null);
+
+//   useEffect(() => {
+//     ref.current.focus();
+//   }, []);
+
+//   return <input ref={ref} value={value} onChange={onChange} />;
+// }
+
+//21
+
+// import { createContext, useContext } from "react";
+
+// const ThemeContext = createContext("light");
+
+// export default function MyApp() {
+//   return (
+//     <ThemeContext.Provider value="dark">
+//       <Form />
+//     </ThemeContext.Provider>
+//   );
+// }
+
+// function Form() {
+//   return (
+//     <Panel title="Welcome">
+//       <Button>Sign up</Button>
+//       <Button>Log in</Button>
+//     </Panel>
+//   );
+// }
+
+// function Panel({ title, children }) {
+//   const theme = useContext(ThemeContext);
+//   const className = "panel-" + theme;
+//   return (
+//     <section className={className}>
+//       <h1>{title}</h1>
+//       {children}
+//     </section>
+//   );
+// }
+
+// function Button({ children }) {
+//   const theme = useContext(ThemeContext);
+//   const className = "button-" + theme;
+//   return <button className={className}>{children}</button>;
+// }
+
+//22
+
+// import { useState, useEffect } from "react";
+
+// export default function Timer() {
+//   const [count, setCount] = useState(0);
+//   const [increment, setIncrement] = useState(1);
+
+//   useEffect(() => {
+//     const id = setInterval(() => {
+//       setCount((c) => c + increment);
+//     }, 1000);
+//     return () => {
+//       clearInterval(id);
+//     };
+//   }, [increment]);
+
+//   return (
+//     <>
+//       <h1>
+//         Counter:{count}
+//         <button onClick={() => setCount(0)}>Reset</button>
+//       </h1>
+//       <hr />
+//       <p>
+//         Every second, increment by :
+//         <button
+//           disabled={increment === 0}
+//           onClick={() => {
+//             setIncrement((i) => i - 1);
+//           }}
+//         >
+//           -
+//         </button>
+//         <b>{increment}</b>
+//         <button
+//           onClick={() => {
+//             setIncrement((i) => i + 1);
+//           }}
+//         >
+//           +
+//         </button>
+//       </p>
+//     </>
+//   );
+// }
+
+//23
+
+import { useState } from "react";
+import ProductPage from "./ProductPage";
+
+export default function App() {
+  const [isDark, setIsDark] = useState(false);
   return (
     <>
-      <DebouncedButton onClick={() => alert("Spaceship launched!")}>
-        Launch the Spaceship
-      </DebouncedButton>
-      <br />
-      <DebouncedButton onClick={() => alert("Soup boiled!")}>
-        Boil the soup
-      </DebouncedButton>
-      <br />
-      <DebouncedButton onClick={() => alert("Lullaby sung!")}>
-        Sing a lullaby
-      </DebouncedButton>
+      <label>
+        <input
+          type="checkbox"
+          checked={isDark}
+          onChange={(e) => setIsDark(e.target.checked)}
+        />
+        Dark mode
+      </label>
+      <hr />
+      <ProductPage
+        referrerId="wizard_of_oz"
+        productId={123}
+        theme={isDark ? "dark" : "light"}
+      />
     </>
   );
 }
