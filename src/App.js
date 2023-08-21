@@ -754,22 +754,242 @@
 
 //27
 
-import { useRef } from "react";
-import MyInput from "./MyInput.js";
+// import { useRef } from "react";
+// import MyInput from "./MyInput.js";
 
-export default function Form() {
-  const ref = useRef(null);
+// export default function Form() {
+//   const ref = useRef(null);
 
-  function handleClick() {
-    ref.current.focus();
-  }
+//   function handleClick() {
+//     ref.current.focus();
+//   }
 
-  return (
-    <form>
-      <MyInput label="Enetr your name:" ref={ref} />
-      <button type="button" onClick={handleClick}>
-        Edit
-      </button>
-    </form>
-  );
-}
+//   return (
+//     <form>
+//       <MyInput label="Enetr your name:" ref={ref} />
+//       <button type="button" onClick={handleClick}>
+//         Edit
+//       </button>
+//     </form>
+//   );
+// }
+
+//28
+
+// import { useReducer } from "react";
+
+// function reducer(state, action) {
+//   if (action.type === "incremented_age") {
+//     return {
+//       age: state.age + 1,
+//     };
+//   }
+//   throw Error("Unknown action.");
+// }
+// export default function Counter() {
+//   const [state, dispatch] = useReducer(reducer, { age: 23 });
+
+//   return (
+//     <>
+//       <button
+//         onClick={() => {
+//           dispatch({ type: "incremented_age" });
+//         }}
+//       >
+//         Increment age
+//       </button>
+//       <p>Hello ! You are {state.age}</p>
+//     </>
+//   );
+// }
+
+//29
+
+// import { useReducer } from "react";
+
+// function createInitialState(username) {
+//   const initialTodos = [];
+//   for (let i = 0; i < 50; i++) {
+//     initialTodos.push({
+//       id: 1,
+//       text: username + " 's task#" + (i + 1),
+//     });
+//   }
+//   return {
+//     draft: " ",
+//     todos: initialTodos,
+//   };
+// }
+
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "changed_draft": {
+//       return {
+//         draft: action.nextDraft,
+//         todos: state.todos,
+//       };
+//     }
+//     case "added_todo": {
+//       return {
+//         draft: " ",
+//         todos: [
+//           {
+//             id: state.todos.length,
+//             text: state.draft,
+//           },
+//           ...state.todos,
+//         ],
+//       };
+//     }
+//   }
+//   throw Error("Unknown action : " + action.type);
+// }
+// export default function TodoList({ username }) {
+//   const [state, dispatch] = useReducer(reducer, username, createInitialState);
+
+//   return (
+//     <>
+//       <input
+//         value={state.draft}
+//         onChange={(e) => {
+//           dispatch({
+//             type: "changed_draft",
+//             nextDraft: e.target.value,
+//           });
+//         }}
+//       />
+//       <button
+//         onClick={() => {
+//           dispatch({ type: "added_todo" });
+//         }}
+//       >
+//         Add
+//       </button>
+//       <ul>
+//         {state.todos.map((item) => (
+//           <li key={item.id}>{item.text}</li>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
+
+//30
+
+// import { useSyncExternalStore } from "react";
+// import { todoStore } from "./todoStore";
+
+// export default function TodosApp() {
+//   const todos = useSyncExternalStore(
+//     todoStore.subscribe,
+//     todoStore.getSnapShot
+//   );
+//   return (
+//     <>
+//       <button onClick={() => todoStore.addTodo}> Add todo</button>
+//       <hr />
+//       <ul>
+//         {todos.map((todo) => (
+//           <li key={todo.id}>{todo.text}</li>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
+
+//31
+// import { Suspense, useState } from "react";
+// import IndexPage from "./IndexPage.js";
+// import ArtistPage from "./ArtistPage";
+// import Layout from "./Layout.js";
+
+// export default function App() {
+//   return (
+//     <Suspense fallback={<BigSpinner />}>
+//       <Router />
+//     </Suspense>
+//   );
+// }
+
+// function Router() {
+//   const [page, setPage] = useState("/");
+
+//   function navigate(url) {
+//     setPage(url);
+//   }
+
+//   let content;
+//   if (page === "/") {
+//     content = <IndexPage navigate={navigate} />;
+//   } else if (page === "/the-beatles") {
+//     content = (
+//       <ArtistPage
+//         artist={{
+//           id: "the-beatles",
+//           name: "The Beatles",
+//         }}
+//       />
+//     );
+//   }
+//   return <Layout> {content} </Layout>;
+// }
+
+// function BigSpinner() {
+//   return <h2> Loading...</h2>;
+// }
+
+//32
+
+// import { useState } from "react";
+
+// export default function Form() {
+//   const [firstName, setFirstName] = useState("");
+//   const [age, setAge] = useState("20");
+//   const ageAsNumber = Number(age);
+//   return (
+//     <b>
+//       <label>
+//         First name:
+//         <input
+//           value={firstName}
+//           onChange={(e) => setFirstName(e.target.value)}
+//         />
+//       </label>
+//       <label>
+//         Age:
+//         <input
+//           value={age}
+//           onChange={(e) => setAge(e.target.value)}
+//           type="number"
+//         />
+//         <button onClick={() => setAge(ageAsNumber + 10)}>Add 10 years </button>
+//       </label>
+//       <b>{firstName !== "" && <p> Your naame is {firstName}.</p>}</b>
+//       {ageAsNumber > 0 && <p>Your age is {ageAsNumber}.</p>}
+//     </b>
+//   );
+// }
+
+//33
+
+// export default function App() {
+//   return (
+//     <>
+//       <progress value={0} />
+//       <br />
+//       <progress value={0.5} />
+//       <br />
+//       <progress value={0.75} />
+//       <br />
+//       <progress value={75} max={100} />
+//       <br />
+//       <progress value={1} />
+//       <br />
+//       <progress value={null} />
+//       <br />
+//       <progress value={undefined} />
+//     </>
+//   );
+// }
+
+//34
