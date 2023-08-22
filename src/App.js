@@ -993,3 +993,127 @@
 // }
 
 //34
+
+// export default function TodoList() {
+//   return (
+//     <ul
+//       style={{
+//         backgroundColor: "black",
+//         color: "pink",
+//       }}
+//     >
+//       <li>jvjgvh</li>
+//       <li>hf57fr</li>
+//       <li>hdfytjvgft</li>
+//     </ul>
+//   );
+// }
+
+//35
+
+// function Avatar() {
+//   return (
+//     <img
+//       className="avatar"
+//       src="https://media.istockphoto.com/id/523761634/photo/cute-panda-bear-climbing-in-tree.jpg?s=612x612&w=0&k=20&c=TxsmORsbuY1LpxQsc6T8fpWJo7lBwncciYhroAr8rXI="
+//       alt="Sakshi"
+//       width={100}
+//       height={100}
+//     />
+//   );
+// }
+
+// export default function Profile() {
+//   return <Avatar />;
+// }
+
+//36
+
+// import { getImageUrl } from "./utils.js";
+
+// function Avatar({ person, size }) {
+//   return (
+//     <img
+//       className="avatar"
+//       src={getImageUrl(person)}
+//       alt={person.name}
+//       width={size}
+//       height={size}
+//     />
+//   );
+// }
+
+// export default function Profile() {
+//   return (
+//     <div>
+//       <Avatar
+//         size={100}
+//         person={{
+//           name: "Sakshi panda",
+//           imageId:
+//             "https://media.istockphoto.com/id/523761634/photo/cute-panda-bear-climbing-in-tree.jpg?s=612x612&w=0&k=20&c=TxsmORsbuY1LpxQsc6T8fpWJo7lBwncciYhroAr8rXI=",
+//         }}
+//       />
+//       <Avatar
+//         size={80}
+//         person={{
+//           name: "Sakshi pandaa",
+//           imageId:
+//             "https://www.wwf.org.uk/sites/default/files/styles/max_650x650/public/2019-11/Small_WW225897.jpg?itok=XpphHonD",
+//         }}
+//       />
+
+//       <Avatar
+//         size={50}
+//         person={{
+//           name: "Sakshi pandaaa",
+//           imageId:
+//             "https://media.istockphoto.com/id/523761634/photo/cute-panda-bear-climbing-in-tree.jpg?s=612x612&w=0&k=20&c=TxsmORsbuY1LpxQsc6T8fpWJo7lBwncciYhroAr8rXI=",
+//         }}
+//       />
+//     </div>
+//   );
+// }
+
+//37
+
+// function Item({ name, isPacked }) {
+//   return <li className="item"> {name} </li>;
+// }
+
+// export default function PackingList() {
+//   return (
+//     <section>
+//       <h1>Sakshi Ride's Packing List</h1>
+//       <ul>
+//         <del>
+//           <Item isPacked={true} name="Space ✔" />
+//         </del>
+
+//         <Item isPacked={true} name="Swim suit ❌" />
+//         <Item isPacked={true} name="Space rocket" />
+//       </ul>
+//     </section>
+//   );
+// }
+
+//OR
+
+import React from "react";
+
+function Item({ name, isPacked }) {
+  return <li className={`item ${isPacked ? "packed" : ""}`}>{name}</li>;
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sakshi Ride's Packing List</h1>
+      <ul>
+        <Item isPacked={true} name="Space ✔" />
+        <Item isPacked={true} name="Swim suit ❌" />
+        <Item isPacked={true} name="Space rocket" />
+      </ul>
+    </section>
+  );
+}
